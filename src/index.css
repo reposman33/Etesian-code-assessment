@@ -1,13 +1,54 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+	display: flex;
+	justify-content: center;
+	align-items: stretch ;
+	height: 100vh;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.tableAlbumsButtons {
+	display: flex;
+	justify-content: space-around;
+}
+
+table td {
+	padding: 0 1rem;
+}
+
+table.albums {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 300px;
+	justify-content: center;
+	width: 500px;
+}
+table tr:nth-child(even) {
+	background-color: lightgray;
+}
+table tr:nth-child(odd) {
+	background-color: #f2f5f7;
+}
+
+input[type=number] {
+	margin-right: 2rem;
+}
+
+#convertToBinary span {
+	margin-left: 2rem;
+}
+
+#categories ol span {
+	font-weight: bold;
+	margin-left: 1rem;
 }
