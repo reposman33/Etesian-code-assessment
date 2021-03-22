@@ -1,6 +1,6 @@
 export const getNextPrime = (number) => {
 	let found = false;
-	while (!found) {
+	while (!found && number) {
 		number++;
 		if (isPriemgetal(number)) {
 			found = true;
