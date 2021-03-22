@@ -6,6 +6,7 @@ export default function App() {
 	const ALBUMS_URL = "https://jsonplaceholder.typicode.com/albums"
 	const CATEGORIES_URL = "https://fakerapi.it/api/v1/custom?_quantity=10&id=counter&score=number&naam=name&categorie=country";
 	const pageSize = 10;
+	const VALVERSNELLING = 10;
 
 	const [albums, setAlbums] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
@@ -15,6 +16,7 @@ export default function App() {
 	const [decimalNumber, setDecimalNumber] = useState(0);
 	const [binaryNumber, setBinaryNumber] = useState(0);
 	const [displayCategories, setDisplayCategories] = useState([]);
+	const [duration, setDuration] = useState();
 
 	const fetchAlbums = (url) => {
 		fetch(url)
@@ -62,6 +64,17 @@ export default function App() {
 	const onChangePrime = (e) => setMaybePrime(e.target.value)
 
 	const onChangeDecimal = (e) => setDecimalNumber(e.target.value)
+
+	/**
+	 * @param {event} e - het event object waar we de waarde van het input veld uit halen
+	 */
+	const onChangeDistance = (e) => {
+		// afstand in meters
+		const distance = e.target.value * 1000;
+		// t in seconden
+		const time = Math.sqrt((2 / VALVERSNELLING) * distance)
+		setDuration(time)
+	}
 
 	const convertToBinary = (number) => {
 		let base = number;
@@ -180,6 +193,15 @@ export default function App() {
 				<input type="number" onChange={onChangeDecimal} />
 				<button onClick={() => convertToBinary(decimalNumber)}>Converteer</button>
 				<span>{binaryNumber}</span>
+			</div>
+
+			<div id="ruimteReis">
+				<h4>
+					Maak een functie waarbij je de afstand kunt opgeven in km’s en uitrekent hoelang je er over doet.
+				</h4>
+				<input type="number" onChange={onChangeDistance} />
+				<button>Bereken</button>
+				<span>De reis duurt <span>{duration}</span> seconden</span>
 			</div>
 		</div>
 	);

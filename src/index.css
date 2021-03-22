@@ -52,3 +52,11 @@ input[type=number] {
 	font-weight: bold;
 	margin-left: 1rem;
 }
+
+#ruimteReis span {
+	margin-left: 1rem;	
+}
+
+#ruimteReis span span {
+	font-weight: bold;
+}
