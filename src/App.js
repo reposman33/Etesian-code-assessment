@@ -10,13 +10,14 @@ export default function App() {
 
 	const [albums, setAlbums] = useState([]);
 	const [currentPage, setCurrentPage] = useState(0);
-	const [maybePrime, setMaybePrime] = useState(0);
+	const [maybePrime, setMaybePrime] = useState();
 	const [categories, setCategories] = useState([]);
 	const [lastPage, setLastPage] = useState(0);
-	const [decimalNumber, setDecimalNumber] = useState(0);
+	const [decimalNumber, setDecimalNumber] = useState();
 	const [binaryNumber, setBinaryNumber] = useState(0);
 	const [displayCategories, setDisplayCategories] = useState([]);
 	const [duration, setDuration] = useState();
+	const [distance, setDistance] = useState();
 
 	const fetchAlbums = (url) => {
 		fetch(url)
@@ -69,12 +70,30 @@ export default function App() {
 	 * @param {event} e - het event object waar we de waarde van het input veld uit halen
 	 */
 	const onChangeDistance = (e) => {
-		// afstand in meters
-		const distance = e.target.value * 1000;
-		// t in seconden
-		const time = Math.sqrt((2 / VALVERSNELLING) * distance)
-		setDuration(time)
+		setDistance(e.target.value * 1000);
 	}
+
+	const getTimeToTravelDistance = (e) => {
+		const time = Math.sqrt((2 / VALVERSNELLING) * distance)
+		setDuration(Math.round(time))
+	}
+
+	const convertToHHMMSS = (seconds) => {
+		const _seconds = Math.round(seconds)
+		// aantal uren in de totale tijd
+		const hours = addPrefix(Math.floor(_seconds / (60 * 60)));
+		// hoeveel seconden (tussen 0 en 3600) resteren
+		const restSeconds = _seconds - (hours * (60 * 60));
+		// dit zijn afgerond minuten
+		const minutes = addPrefix(Math.floor(restSeconds / 60));
+		// overblijvende seconden
+		const s = addPrefix((restSeconds - (minutes * 60)));
+
+		return seconds ? `${hours}:${minutes}:${s}` : null;
+	}
+
+	// return 01,...09 in plaats van 1,...9 
+	const addPrefix = (nr) => nr < 10 ? '0' + nr : nr;
 
 	const convertToBinary = (number) => {
 		let base = number;
@@ -200,8 +219,8 @@ export default function App() {
 					Maak een functie waarbij je de afstand kunt opgeven in km’s en uitrekent hoelang je er over doet.
 				</h4>
 				<input type="number" onChange={onChangeDistance} />
-				<button>Bereken</button>
-				<span>De reis duurt <span>{duration}</span> seconden</span>
+				<button onClick={getTimeToTravelDistance}>Bereken</button>
+				<span>De reis duurt <span>{duration}</span> seconden {duration && '- ' + convertToHHMMSS(duration)}</span>
 			</div>
 		</div>
 	);
